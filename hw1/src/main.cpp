@@ -59,7 +59,7 @@ int main(int argc, char **argv) {
 
     try {
         std::ifstream in(path);
-        generator::generate_vars(in, std::cout, 5, 6);
+        generator::generate_vars(in, std::cout, numbilets, parameter);
     } catch(std::exception& e) {
         std::cerr << e.what() << std::endl;
     }
