@@ -1,7 +1,8 @@
-#include <iostream>
+#include <fstream>
 #include <getopt.h>
 #include <exception>
 #include <filesystem>
+#include "generator.h"
 
 int main(int argc, char **argv) {
     std::string help_message(
@@ -45,7 +46,23 @@ int main(int argc, char **argv) {
         std::exit(1);
     }
 
-    std::cout << filename << '\n' << numbilets << '\n' << parameter << std::endl;
+    if (filename.empty() || numbilets <= 0) {
+        std::cout << help_message << std::endl;
+        std::exit(1);
+    }
+
+    std::filesystem::path path(filename);
+    if (!std::filesystem::exists(path)) {
+        std::cerr << "File doesn't exist. Exit." << std::endl;
+        std::exit(1);
+    }
+
+    try {
+        std::ifstream in(path);
+        generator::generate_vars(in, std::cout, 5, 6);
+    } catch(std::exception& e) {
+        std::cerr << e.what() << std::endl;
+    }
 
     return 0;
 }
