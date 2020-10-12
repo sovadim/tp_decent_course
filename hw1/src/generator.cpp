@@ -1,7 +1,6 @@
 #include <iostream>
 #include <functional>
 #include "generator.h"
-#include "string_hash-inl.h"
 
 namespace generator {
 
